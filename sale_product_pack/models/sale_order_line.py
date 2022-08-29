@@ -72,6 +72,7 @@ class SaleOrderLine(models.Model):
                     vals_list.append(vals)
             if vals_list:
                 self.create(vals_list)
+        self.order_id.warn_to_save = False
 
     @api.model
     def create(self, vals):

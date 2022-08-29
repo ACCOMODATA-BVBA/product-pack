@@ -33,5 +33,9 @@
                 <span t-else="" class="font-weight-bold text-uppercase">Free</span>
             </div>
         </xpath>
+        <xpath expr="//div[@class='ml-auto o_wevent_nowrap']"
+               position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
     </template>
 </odoo>

@@ -1,11 +1,13 @@
 # Copyright 2019 Tecnativa - Ernesto Tejeda
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from odoo import _, api, models
+from odoo import _, api, models, fields
 from odoo.exceptions import UserError
 
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
+
+    warn_to_save = fields.Boolean('Warn to save the record', help='technical')
 
     def copy(self, default=None):
         sale_copy = super().copy(default)
@@ -15,6 +17,12 @@ class SaleOrder(models.Model):
         )
         pack_copied_lines.unlink()
         return sale_copy
+
+    @api.onchange("order_line")
+    def onchange_order_line(self):
+        if self.order_line.filtered(lambda x: x.product_id.pack_ok and
+                                    x.pack_type == 'detailed'):
+            self.warn_to_save = True
 
     @api.onchange("order_line")
     def check_pack_line_unlink(self):

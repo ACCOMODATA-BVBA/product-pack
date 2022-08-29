@@ -10,6 +10,9 @@
                 <field name="total_pack_price"
                        attrs="{'invisible': [('pack_ok', '=', False)]}"/>
             </xpath>
+            <xpath expr="//field[@name='price']" position="attributes">
+                <attribute name="attrs">{'readonly': [('pack_ok', '=', True)]}</attribute>
+            </xpath>
         </field>
     </record>
 </odoo>

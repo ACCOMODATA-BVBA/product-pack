@@ -33,9 +33,27 @@
                 <span t-else="" class="font-weight-bold text-uppercase">Free</span>
             </div>
         </xpath>
-        <xpath expr="//div[@class='ml-auto o_wevent_nowrap']"
-               position="attributes">
-            <attribute name="style">display:none;</attribute>
+    </template>
+    <template id="registration_attendee_details" inherit_id="website_event.registration_attendee_details">
+        <xpath expr="//div[@class='row']" position="replace">
+            <div class="row">
+                <div class="col-lg my-2">
+                    <label>Name</label>
+                    <input class="form-control" type="text" t-attf-name="#{counter}-name" required="This field is required"
+                        t-att-value="default_first_attendee.get('name', '') + ' - Ticket #' + str(counter)"/>
+                </div>
+                <div class="col-lg my-2">
+                    <label>Email</label>
+                    <input class="form-control" type="email" t-attf-name="#{counter}-email" required="This field is required"
+                        t-att-value="default_first_attendee.get('email', '')"/>
+                </div>
+                <div class="col-lg my-2">
+                    <label>Phone <small>(Optional)</small></label>
+                    <input class="form-control" type="tel" t-attf-name="#{counter}-phone"
+                        t-att-value="default_first_attendee.get('phone', '')"/>
+                </div>
+                <input class="d-none" type="text" t-attf-name="#{counter}-event_ticket_id" t-attf-value="#{ticket['id']}"/>
+            </div>
         </xpath>
     </template>
 </odoo>

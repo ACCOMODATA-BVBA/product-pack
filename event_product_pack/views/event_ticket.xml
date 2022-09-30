@@ -1,0 +1,18 @@
+<odoo>
+    <record id="event_event_ticket_view_tree_from_event" model="ir.ui.view">
+        <field name="name">event.event.ticket.view.tree.from.event</field>
+        <field name="model">event.event.ticket</field>
+        <field name="inherit_id" ref="event.event_event_ticket_view_tree_from_event"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='start_sale_datetime']"
+                   position="before">
+                <field name="pack_ok" invisible="1"/>
+                <field name="total_pack_price"
+                       attrs="{'invisible': [('pack_ok', '=', False)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='price']" position="attributes">
+                <attribute name="attrs">{'readonly': [('pack_ok', '=', True)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
